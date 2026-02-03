@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Valentine ❤️</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(-45deg, #ffb6c1, #ff4d6d, #ffb6c1, #ffc0cb);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  overflow-x: hidden;
+  text-align: center;
+  color: #ff4d6d;
+}
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  color: rgba(255,0,80,0.6);
+  animation: floatUp 8s linear infinite, heartbeat 1s ease-in-out infinite;
+  z-index: -1; /* keep hearts behind content */
+}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.envelope {
+  background: #fff;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 360px;
+  padding: 30px 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.open-btn {
+  background: #ff4d6d;
+  color: white;
+}
+
+.letter, .gallery, .love-message {
+  display: none;
+}
+
+h1 {
+  color: #ff4d6d;
+}
+
+.buttons {
+  margin-top: 25px;
+  position: relative;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background: #ccc;
+  position: absolute;
+  transition: all 0.3s ease;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+/* Beating heart */
+.beat-heart {
+  font-size: 50px;
+  animation: heartbeat 1s infinite;
+  margin-bottom: 20px;
+}
+
+/* I LOVE YOU message */
+.love-message h1 {
+  font-size: 3em;
+  color: #ff1a75;
+  animation: heartbeat 1s infinite;
+  margin-bottom: 20px;
+}
+
+.paragraphs {
+  text-align: left;
+  margin-top: 20px;
+  font-size: 1em;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- Background music -->
+<audio id="bgMusic" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Floating hearts with random starting positions
+for (let i = 0; i < 20; i++) {
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "❤️";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.bottom = Math.random() * 80 + "vh"; // random height start
+  h.style.animationDuration = (5 + Math.random() * 5) + "s";
+  h.style.fontSize = (15 + Math.random() * 20) + "px";
+  document.body.appendChild(h);
+}
+</script>
+
+<div class="container">
+  <!-- Envelope -->
+  <div class="envelope" id="envelope">
+    <h1>💌 A Letter For You</h1>
+    <p>For my Madam jii, Sohni Swaani, Sundariiii 💕</p>
+    <button class="open-btn" onclick="openLetter()">Open</button>
+  </div>
+
+  <!-- Letter popup with heart & Yes/No -->
+  <div class="envelope letter" id="letter">
+    <div class="beat-heart">❤️</div>
+    <div class="buttons">
+      <button id="yes" onclick="yesClicked()">Yes 💕</button>
+      <button id="no">No 💔</button>
+    </div>
+  </div>
+
+  <!-- Gallery with photos + paragraphs below -->
+  <div class="envelope gallery" id="gallery">
+    <div class="love-message" id="loveMessage">
+      <h1>I LOVE YOU 💖</h1>
+    </div>
+
+    <h1>My Choco Pie 🍫❤️</h1>
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <img src="photo4.jpg">
+    <img src="photo5.jpg">
+
+    <div class="paragraphs" id="letterParagraphs"></div>
+    <p>I choose you. Always. 💘</p>
+  </div>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+const noBtn = document.getElementById("no");
+
+// Open envelope
+function openLetter() {
+  document.getElementById("envelope").style.display = "none";
+  document.getElementById("letter").style.display = "block";
+  music.play();
+}
+
+// Dodging No button
+noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("mouseover", moveNo);
+function moveNo() {
+  noBtn.style.left = Math.random() * 200 + "px";
+  noBtn.style.top = Math.random() * 100 + "px";
+}
+
+// Paragraphs below photos
+const paragraphs = [
+  "Madam jii… Sohni Swaani… Sundariiii 💕 From the moment I met you, my world has been brighter, warmer, and full of laughter. Every little thing you do — your smile, your voice, the way you make everything around you better — makes my heart flutter like these floating hearts.",
+  "I remember all the moments we’ve shared — the silly jokes, the late-night chats, the little adventures that felt like magic. Every memory with you is a treasure I keep close, and every day I spend with you adds a new page to our story.",
+  "Madam jii… Sohni Swaani… Sundariiii, you are my comfort when I’m down, my inspiration when I need courage, and the first thought I have when I wake up and the last when I sleep. Simply put, you make my life infinitely better, and I am so grateful to have you by my side.",
+  "Today, on Valentine’s Day, I want to ask… will you continue this journey with me? Will you be my Valentine, my partner in crime, my everything? I promise to always choose you, to make you laugh, to support you, and to fill your life with love and joy — today, tomorrow, and always. 💖",
+  "So, my choco pie 🍫❤️, my sunshine, my heart… Madam jii, Sohni Swaani, Sundariiii… I hope this little letter makes you smile as much as you make me smile every day. I love you. Always and forever. 💘",
+  "Aapki pappi leke bhaag jaunga 💗" // Fun line at the end
+];
+
+// Typing animation for paragraphs
+function typeParagraphs(index = 0) {
+  if (index >= paragraphs.length) return;
+  const container = document.getElementById("letterParagraphs");
+  let text = paragraphs[index];
+  let i = 0;
+  const interval = setInterval(() => {
+    container.innerHTML += text[i];
+    i++;
+    if (i >= text.length) {
+      clearInterval(interval);
+      container.innerHTML += "<br><br>";
+      setTimeout(() => typeParagraphs(index + 1), 500);
+    }
+  }, 25);
+}
+
+// Yes button clicked
+function yesClicked() {
+  document.getElementById("letter").style.display = "none";
+  document.getElementById("gallery").style.display = "block";
+  typeParagraphs(); // start typing below photos
+}
+</script>
+
+</body>
+</html>
